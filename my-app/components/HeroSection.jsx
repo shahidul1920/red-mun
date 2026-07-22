@@ -5,6 +5,7 @@ import gsap from "gsap";
 import SubHeading from "@/components/SubHeading";
 import Button from "@/components/Button";
 import Image from "next/image";
+import Link from "next/link";
 
 const headingWords =
   "Creatives. Designs. Marketing. Development. Data. Scale Your Business".split(" ");
@@ -76,9 +77,9 @@ const HeroSection = () => {
             understand their needs and goals, and we develop customized
             solutions that deliver results.
           </p>
-          <div className="mt-6 text-center mx-auto">
+          <a href="#services" className="mt-6 text-center mx-auto">
             <Button>Get Started</Button>
-          </div>
+          </a>
         </div>
       </div>
     </div>

@@ -17,6 +17,10 @@
   --font-body: var(--font-body);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-body), sans-serif;
 }

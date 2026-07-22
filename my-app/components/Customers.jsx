@@ -321,7 +321,7 @@ const Customers = () => {
             {partners.map((partner) => (
               <div
                 key={partner.id}
-                className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-white p-4 shadow-lg shadow-black/10 transition-transform duration-300 hover:-translate-y-1 hover:scale-105 md:h-28 md:w-28"
+                className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-gray-600 p-4 shadow-lg shadow-black/10 transition-transform duration-300 hover:-translate-y-1 hover:scale-105 md:h-28 md:w-28"
               >
                 <div className="relative h-full w-full">
                   <Image
