@@ -144,7 +144,7 @@ const WhyChooseUs = () => {
                     key={index}
                     className={`faq-reveal border border-white/10 rounded-2xl overflow-hidden transition-colors duration-300 ${
                       isOpen
-                        ? "bg-brandnd border-brand/50"
+                        ? "bg-[#E42032] border-[#E42032]"
                         : "bg-transparent hover:bg-white/5"
                     }`}
                   >
@@ -154,12 +154,12 @@ const WhyChooseUs = () => {
                       aria-expanded={isOpen}
                     >
                       <span
-                        className={`font-medium text-lg pr-8 transition-colors ${isOpen ? "text-brand" : "text-gray-200"}`}
+                        className={`font-medium text-lg pr-8 transition-colors ${isOpen ? "text-white font-semibold" : "text-gray-200"}`}
                       >
                         {faq.question}
                       </span>
                       <span
-                        className={`shrink-0 flex items-center justify-center w-8 h-8 rounded-full border transition-colors ${isOpen ? "border-brand text-brand" : "border-white/20 text-gray-400"}`}
+                        className={`shrink-0 flex items-center justify-center w-8 h-8 rounded-full border transition-colors ${isOpen ? "border-white text-white" : "border-white/20 text-gray-400"}`}
                       >
                         {isOpen ? <Minus size={16} /> : <Plus size={16} />}
                       </span>
@@ -171,7 +171,7 @@ const WhyChooseUs = () => {
                       style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                     >
                       <div className="overflow-hidden">
-                        <p className="p-6 pt-0 text-gray-400 leading-relaxed">
+                        <p className="p-6 pt-0 text-white/90 leading-relaxed text-sm font-light">
                           {faq.answer}
                         </p>
                       </div>

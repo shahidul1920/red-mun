@@ -129,7 +129,7 @@ const Header = () => {
         <Link href="/" className="relative z-10" onClick={closeMobileMenu}>
           <div className="logo h-[20px] w-auto">
             <Image
-              src="/Redmun-final.png"
+              src="/Redmun-final.svg"
               className="size-full object-contain"
               alt="Logo"
               width={300}
@@ -141,7 +141,7 @@ const Header = () => {
         {/* Desktop nav */}
         <div className="menus mr-2 hidden md:block">
           <nav className="navBar">
-            <ul className="flex list-none items-center gap-8 text-[18px] font-medium">
+            <ul className="flex list-none items-center gap-8 text-[16px] font-medium">
               <li>
                 <Link href="/">Home</Link>
               </li>
