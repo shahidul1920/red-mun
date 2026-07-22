@@ -87,12 +87,12 @@ const Footer = () => {
           {/* Logo, tagline, socials */}
           <div>
             <Link href="/" className="inline-block">
-              <div className="h-[50px] w-auto">
+              <div className="h-[30px] w-auto">
                 <Image
-                  src="/astha-creatives-logo-1.png"
+                  src="/Redmun-final.png"
                   alt="Astha Creatives"
-                  width={70}
-                  height={70}
+                  width={150}
+                  height={27}
                   className="size-full object-contain brightness-0 invert"
                 />
               </div>
@@ -162,7 +162,7 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-bold">Get In Touch</h3>
             <ul className="mt-5 flex flex-col gap-3 text-sm text-white/70">
-              <li>Road 13, Sector 14, Uttara, Dhaka</li>
+              <li>House 20, Road 12, Sector 03, Uttara, Dhaka</li>
               <li>
                 <a
                   href="mailto:contact@redmun.com"

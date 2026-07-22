@@ -78,7 +78,7 @@ const Team = () => {
   };
 
   return (
-    <div ref={sectionRef} className="w-full py-20 md:py-28 bg-mpure">
+    <div ref={sectionRef} className="w-full py-6 md:py-12 bg-mpure">
       <div className="container mx-auto px-4">
         <HeadNtext
           heading="Meet Our Team"
