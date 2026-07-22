@@ -2,7 +2,7 @@ import ServicePageTemplate from "@/components/ServicePageTemplate";
 import dataAnalytics from "@/data/services/data-analytics";
 
 export const metadata = {
-  title: "Data Analytics Services & BI Dashboards | Astha Creatives",
+  title: "Data Analytics Services & BI Dashboards | Redmun",
   description:
     "Turn raw business numbers into growth with our data analytics services. We configure GA4 tracking pipelines, looker studio dashboards, database models, and marketing conversion analytics.",
 };

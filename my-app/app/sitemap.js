@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = "https://asthacreatives.com";
+  const baseUrl = "https://redmun.com";
   const lastModified = new Date();
 
   const routes = [

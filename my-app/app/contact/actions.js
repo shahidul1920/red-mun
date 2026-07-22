@@ -20,7 +20,7 @@ export async function sendContactEmail(formData) {
       return { success: true };
     }
     const data = await resend.emails.send({
-      from: "Astha Creatives <no-reply@mail.asthacreatives.com>",
+      from: "Redmun <no-reply@mail.redmun.com>",
       to: ["murtaza@redmun.com", "shahidul1920shakil@gmail.com"],
       subject: `New Lead: ${name}`,
       reply_to: email,

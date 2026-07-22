@@ -107,7 +107,7 @@ const WhyChooseUs = () => {
 
             <Image
               src={whyImage}
-              alt="Team working at Astha Creatives"
+              alt="Team working at Redmun"
               fill
               className="object-cover opacity-80"
               sizes="(max-width: 1024px) 100vw, 50vw"

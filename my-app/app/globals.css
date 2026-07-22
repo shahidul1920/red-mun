@@ -49,8 +49,8 @@ h1, h2, h3, h4, h5, h6 {
 
   /* Scale down service page hero typography on short viewports to prevent overflow */
   .service-hero-section {
-    height: auto !important;
-    min-height: 480px !important;
+    height: 50vh !important;
+    min-height: 380px !important;
     padding-top: 7.5rem !important;
     padding-bottom: 4rem !important;
   }
@@ -62,5 +62,32 @@ h1, h2, h3, h4, h5, h6 {
     font-size: clamp(0.9rem, 2.2vh, 1.05rem) !important;
     margin-top: 0.75rem !important;
     line-height: 1.45 !important;
+  }
+
+  /* Reduce large gaps/paddings on short viewports to tighten layout */
+  .py-16, .py-20, .py-24, .py-28, .py-32, .pb-16, .pb-24, 
+  [class*="py-16"], [class*="py-20"], [class*="py-24"], [class*="py-28"] {
+    padding-top: 3.5rem !important;
+    padding-bottom: 3.5rem !important;
+  }
+  .mb-14, .mb-16, .mb-20, .mb-12 {
+    margin-bottom: 2rem !important;
+  }
+}
+
+/* Stack panels on small screens or short viewports to prevent grid/content cut-offs */
+@media (max-width: 1024px), (max-height: 800px) {
+  .stack-panel {
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
+    margin-bottom: -1px;
+  }
+  .stack-panel .pointer-events-none {
+    display: none !important;
   }
 }

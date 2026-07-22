@@ -2,7 +2,7 @@ import ServicePageTemplate from "@/components/ServicePageTemplate";
 import videoEditing from "@/data/services/video-editing";
 
 export const metadata = {
-  title: "Professional Video Editing & Post-Production | Astha Creatives",
+  title: "Professional Video Editing & Post-Production | Redmun",
   description:
     "Transform your raw footage into cinematic stories. Our premium video editing services include color grading, advanced sound design, motion graphics, and social-first crop edits built to retain viewers.",
 };

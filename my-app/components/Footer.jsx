@@ -90,7 +90,7 @@ const Footer = () => {
               <div className="h-[30px] w-auto">
                 <Image
                   src="/Redmun-final.png"
-                  alt="Astha Creatives"
+                  alt="Redmun"
                   width={150}
                   height={27}
                   className="size-full object-contain brightness-0 invert"
@@ -193,7 +193,7 @@ const Footer = () => {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-white/50 sm:flex-row">
           <p>
-            &copy; {new Date().getFullYear()} Astha Creatives. All rights
+            &copy; {new Date().getFullYear()} Redmun. All rights
             reserved.
           </p>
           <div className="flex items-center gap-6">

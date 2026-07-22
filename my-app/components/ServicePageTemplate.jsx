@@ -154,7 +154,7 @@ const ServicePageTemplate = ({ service }) => {
       style={{ fontFamily: "var(--font-body)" }}
     >
       {/* Hero */}
-      <section className="relative flex h-[70vh] min-h-[560px] w-full items-end overflow-hidden bg-[#16181F]">
+      <section className="service-hero-section relative flex h-[70vh] min-h-[560px] w-full items-end overflow-hidden bg-[#16181F]">
         <Image
           src={service.heroImage}
           alt={service.heroTitle}

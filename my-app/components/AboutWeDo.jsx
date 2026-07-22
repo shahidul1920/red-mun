@@ -71,8 +71,8 @@ const About = () => {
         <span className="pointer-events-none absolute -right-10 top-1/2 -translate-y-1/2 select-none text-[20rem] font-black leading-none text-white/5 md:text-[28rem] lg:text-[34rem]">
           {/* A */}
           <Image
-            src="/astha-creatives-logo-1.png"
-            alt="Astha Creatives Logo"
+            src="/Redmun-final.svg"
+            alt="Redmun Logo"
             width={500}
             height={500}
             className="brightness-0 invert opacity-20"
@@ -84,10 +84,10 @@ const About = () => {
               01 — Who Are We
             </span>
             <h2 className="reveal text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
-              Astha Creatives
+              Redmun
             </h2>
             <p className="reveal mt-6 text-base leading-relaxed text-white/70 md:text-lg">
-              Astha Creatives is a forward-thinking digital creative agency
+              Redmun is a forward-thinking digital agency
               based in Dhaka, specializing in helping brands grow with clarity,
               consistency, and confidence. We blend creativity, strategy, and
               smart digital solutions to elevate your business presence online.
