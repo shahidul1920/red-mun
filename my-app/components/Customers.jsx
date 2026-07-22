@@ -317,7 +317,7 @@ const Customers = () => {
             styleText="text-white"
           />
 
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 mt-4">
             {partners.map((partner) => (
               <div
                 key={partner.id}

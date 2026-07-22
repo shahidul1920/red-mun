@@ -8,7 +8,8 @@ import Image from "next/image";
 import Redwan from "@/images/teams/redwan.jpeg";
 import Murtaza from "@/images/teams/murtaza.jpeg";
 import Shahidul from "@/images/teams/shahidul.jpeg";
-import Emon from "@/images/teams/shahidul.jpeg";
+import Emon from "@/images/teams/jahidul.jpeg";
+import arif from "@/images/teams/arif.jpeg";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -22,8 +23,9 @@ const teamMembers = [
     role: "Project Manager",
     image: Murtaza,
   },
-  { id: 3, name: "Shahidul Shakil", role: "Lead Developer", image: Shahidul },
-  { id: 4, name: "Jahidul Islam", role: "Lead Designer", image: Emon },
+  { id: 3, name: "Arif Hossain", role: "Project Lead", image: arif },
+  { id: 4, name: "Shahidul Shakil", role: "Lead Developer", image: Shahidul },
+  { id: 5, name: "Jahidul Islam", role: "Lead Designer", image: Emon },
 ];
 
 const Team = () => {
@@ -85,7 +87,7 @@ const Team = () => {
           text="As a team, we move forward with deep trust in our vision, believing that with focus, dedication, and heart, meaningful success is always within reach."
         />
 
-        <div className="mt-6 grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-5">
           {teamMembers.map((member) => (
             <div
               key={member.id}

@@ -100,8 +100,8 @@ const ServicesSection = () => {
 
   return (
     <section
-      id="services"
       ref={sectionRef}
+      id="services"
       className="srv relative w-full overflow-hidden bg-[#F6F4EF] py-20 md:py-28"
     >
       <div
