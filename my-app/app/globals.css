@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+:root {
+  --brand-color: #0f111d;
+  --brand-color-sec: #4d61d6;
+  --mid-pure: #ebf2f9;
+}
+
+@theme inline {
+  --color-brand: var(--brand-color);
+  --color-mpure: var(--mid-pure);
+  --color-brandnd: var(--brand-color-sec);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand-color: #0f111d;
+    --foreground: #ffffff;
+  }
+}
+
+@media (max-height: 780px) {
+  /* Scale down home hero typography on short viewports to prevent overflow */
+  .textSec {
+    padding-top: 4.5rem !important;
+  }
+  .textSec h1 {
+    font-size: clamp(1.8rem, 6.5vh, 3.25rem) !important;
+    line-height: 1.15 !important;
+  }
+  .textSec p {
+    font-size: clamp(0.9rem, 2.2vh, 1.15rem) !important;
+    margin-top: 0.75rem !important;
+    line-height: 1.45 !important;
+  }
+
+  /* Scale down service page hero typography on short viewports to prevent overflow */
+  .service-hero-section {
+    height: auto !important;
+    min-height: 480px !important;
+    padding-top: 7.5rem !important;
+    padding-bottom: 4rem !important;
+  }
+  .service-hero-section h1 {
+    font-size: clamp(1.75rem, 5.5vh, 2.75rem) !important;
+    line-height: 1.15 !important;
+  }
+  .service-hero-section p {
+    font-size: clamp(0.9rem, 2.2vh, 1.05rem) !important;
+    margin-top: 0.75rem !important;
+    line-height: 1.45 !important;
+  }
+}
