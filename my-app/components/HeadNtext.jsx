@@ -4,7 +4,7 @@ const HeadNtext = (props) => {
   return (
     <article className="max-w-4xl mx-auto flex flex-col items-center justify-center gap-4 px-4 text-center sm:px-6 lg:px-8">
       <h2
-        className={`capitalize text-2xl font-bold text-brand sm:text-3xl md:text-4xl${props.styleText ? ` ${props.styleText}` : "text-brand"}`}
+        className={`capitalize font-display text-2xl font-bold text-brand sm:text-3xl md:text-4xl ${props.styleText || ""}`}
       >
         {props.heading}
       </h2>

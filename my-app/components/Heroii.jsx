@@ -2,25 +2,6 @@
 
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { Space_Grotesk, Inter } from 'next/font/google';
-
-/**
- * Fonts are declared at module scope per next/font convention.
- * If Hero is the only place using these, this is fine as-is.
- * If you use these faces elsewhere too, move this block to app/layout.jsx
- * and pass the variables down via the <html>/<body> className instead.
- */
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  weight: ['500', '600', '700'],
-  variable: '--font-display',
-});
-
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-body',
-});
 
 const CAPABILITIES = [
   'Brand Identity',
@@ -105,7 +86,7 @@ export default function Heroii() {
   return (
     <section
       ref={rootRef}
-      className={`${spaceGrotesk.variable} ${inter.variable} relative overflow-hidden bg-[#F6F4EF] py-16 sm:py-20 lg:py-28`}
+      className="relative overflow-hidden bg-[#F6F4EF] py-16 sm:py-20 lg:py-28"
     >
       {/* ambient backdrop */}
       <div
@@ -120,8 +101,7 @@ export default function Heroii() {
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* headline */}
         <h1
-          style={{ fontFamily: 'var(--font-display)' }}
-          className="mb-14 max-w-5xl text-[2.15rem] font-semibold uppercase leading-[1.08] tracking-tight text-[#16181F] sm:mb-16 sm:text-5xl lg:mb-20 lg:text-6xl"
+          className="font-display mb-14 max-w-5xl text-[2.15rem] font-semibold uppercase leading-[1.08] tracking-tight text-[#16181F] sm:mb-16 sm:text-5xl lg:mb-20 lg:text-6xl"
         >
           <span className="block overflow-hidden">
             <span data-anim="headline-line" className="block">
@@ -138,7 +118,7 @@ export default function Heroii() {
 
         <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-2 lg:gap-16">
           {/* left: copy */}
-          <div style={{ fontFamily: 'var(--font-body)' }}>
+          <div className="font-body">
             <div className="mb-8 flex flex-col gap-3 sm:max-w-md">
               <div
                 data-anim="pill"
@@ -166,8 +146,7 @@ export default function Heroii() {
 
             <h2
               data-anim="copy"
-              style={{ fontFamily: 'var(--font-display)' }}
-              className="mb-6 text-2xl font-semibold leading-tight text-[#16181F] sm:text-3xl"
+              className="font-display mb-6 text-2xl font-semibold leading-tight text-[#16181F] sm:text-3xl"
             >
               Translating your vision into the digital landscape.
             </h2>
@@ -230,8 +209,7 @@ export default function Heroii() {
         {/* signature element: scrolling capability strip */}
         <div className="mt-16 border-t border-[#16181F]/10 pt-8 sm:mt-20 lg:mt-24">
           <p
-            style={{ fontFamily: 'var(--font-display)' }}
-            className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-[#16181F]/50"
+            className="font-display mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-[#16181F]/50"
           >
             What we bring to the table
           </p>
@@ -240,8 +218,7 @@ export default function Heroii() {
               {[...CAPABILITIES, ...CAPABILITIES].map((item, i) => (
                 <span
                   key={`${item}-${i}`}
-                  style={{ fontFamily: 'var(--font-display)' }}
-                  className="flex items-center gap-3 whitespace-nowrap text-lg font-medium text-[#16181F]/70 sm:text-xl"
+                  className="font-display flex items-center gap-3 whitespace-nowrap text-lg font-medium text-[#16181F]/70 sm:text-xl"
                 >
                   {item}
                   <span className="h-1.5 w-1.5 rounded-full bg-[#E42032]" />
