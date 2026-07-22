@@ -12,9 +12,9 @@ const HomePage = () => {
   return (
     <div>
       <HeroSection />
+      <Heroii />
       <ServicesSection />
       {/* <Portfolio /> */}
-      <Heroii />
       <Customers />
       <Team />
       <Gcta />

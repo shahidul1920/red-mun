@@ -5,6 +5,7 @@ import HeadNtext from "./HeadNtext";
 import Image from "next/image";
 import { Heart, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
 // Import your images
@@ -18,8 +19,9 @@ import timClue from "@/images/companies/tim-clue.jpeg";
 import b2g from "@/images/companies/b2g.png";
 import xeniusoft from "@/images/companies/xeniusoft.png";
 
-// Register GSAP hook
-gsap.registerPlugin(useGSAP);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(useGSAP, ScrollTrigger);
+}
 
 const testimonials = [
   {
@@ -92,9 +94,16 @@ const getVisibleCount = () => {
   return 1;
 };
 
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 const Customers = () => {
+  const rootRef = useRef(null);
   const sliderContainer = useRef(null);
   const trackRef = useRef(null);
+  const headingRef = useRef(null);
+  const partnersRef = useRef(null);
   const autoplayRef = useRef(null);
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -123,15 +132,38 @@ const Customers = () => {
     () => {
       gsap.to(trackRef.current, {
         xPercent: -(currentIndex * (100 / testimonials.length)),
-        duration: 0.8,
+        duration: prefersReducedMotion() ? 0 : 0.8,
         ease: "power3.inOut",
       });
     },
     { dependencies: [currentIndex], scope: sliderContainer },
   );
 
+  // One-time entrance reveal as each block scrolls into view.
+  useGSAP(
+    () => {
+      if (prefersReducedMotion()) return;
+
+      [headingRef, sliderContainer, partnersRef].forEach((ref) => {
+        gsap.fromTo(
+          ref.current,
+          { opacity: 0, y: 32 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: { trigger: ref.current, start: "top 82%" },
+          },
+        );
+      });
+    },
+    { scope: rootRef },
+  );
+
   const startAutoplay = () => {
     clearInterval(autoplayRef.current);
+    if (prefersReducedMotion()) return;
     autoplayRef.current = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1 > maxIndex ? 0 : prev + 1));
     }, AUTOPLAY_MS);
@@ -163,10 +195,15 @@ const Customers = () => {
   const resumeAutoplay = () => startAutoplay();
 
   return (
-    <div className="bg-mpure relative overflow-hidden py-20 md:py-28">
-      <div className="container mx-auto px-4">
+    <div ref={rootRef} className="relative overflow-hidden bg-[#F6F4EF] py-8 md:pt-16">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:radial-gradient(#16181F_1px,transparent_1px)] [background-size:22px_22px]"
+      />
+
+      <div className="container relative mx-auto px-4">
         {/* Header Section */}
-        <div className="mb-6 text-center text-gray-900">
+        <div ref={headingRef} className="mb-6 text-center text-[#16181F]">
           <HeadNtext
             heading="Our Clients Feedbacks"
             text="We served these companies with love and care. For that, some of them turned to us again and again. We have the mindset to help you thrive!"
@@ -191,7 +228,7 @@ const Customers = () => {
                   className="w-full shrink-0 px-3 sm:w-1/2 lg:w-1/3"
                 >
                   {/* The Card UI */}
-                  <div className="flex h-full flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-lg md:p-7">
+                  <div className="flex h-full flex-col rounded-2xl border border-[#16181F]/8 bg-white p-6 shadow-[0_8px_24px_rgba(22,24,31,0.06)] md:p-7">
                     <div className="mb-4 flex items-center justify-between">
                       <Quote
                         className="h-7 w-7 text-brand/25"
@@ -203,12 +240,12 @@ const Customers = () => {
                       </span>
                     </div>
 
-                    <p className="line-clamp-6 flex-1 text-sm leading-relaxed text-gray-600">
+                    <p className="line-clamp-6 flex-1 text-sm leading-relaxed text-[#4B4D59]">
                       {test.review}
                     </p>
 
-                    <div className="mt-6 flex items-center gap-3 border-t border-gray-100 pt-4">
-                      <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-gray-100">
+                    <div className="mt-6 flex items-center gap-3 border-t border-[#16181F]/8 pt-4">
+                      <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-[#16181F]/8">
                         <Image
                           src={test.image}
                           alt={test.name}
@@ -217,7 +254,10 @@ const Customers = () => {
                           sizes="48px"
                         />
                       </div>
-                      <h4 className="text-sm font-bold tracking-wide text-gray-900">
+                      <h4
+                        style={{ fontFamily: "var(--font-display, inherit)" }}
+                        className="text-sm font-bold tracking-wide text-[#16181F]"
+                      >
                         {test.name}
                       </h4>
                     </div>
@@ -231,7 +271,7 @@ const Customers = () => {
           <div className="mt-2 flex items-center justify-center gap-6">
             <button
               onClick={prevSlide}
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-md transition-colors duration-300 hover:border-brand hover:bg-brand hover:text-white"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-[#16181F]/10 bg-white text-[#16181F]/70 shadow-md transition-colors duration-300 hover:border-brand hover:bg-brand hover:text-white"
               aria-label="Previous testimonial"
             >
               <ChevronLeft size={22} />
@@ -246,7 +286,7 @@ const Customers = () => {
                   className={`h-2 rounded-full transition-all duration-500 ${
                     currentIndex === idx
                       ? "w-8 bg-brand"
-                      : "w-2 bg-gray-300 hover:bg-gray-400"
+                      : "w-2 bg-[#16181F]/15 hover:bg-[#16181F]/25"
                   }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 />
@@ -255,7 +295,7 @@ const Customers = () => {
 
             <button
               onClick={nextSlide}
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-md transition-colors duration-300 hover:border-brand hover:bg-brand hover:text-white"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-[#16181F]/10 bg-white text-[#16181F]/70 shadow-md transition-colors duration-300 hover:border-brand hover:bg-brand hover:text-white"
               aria-label="Next testimonial"
             >
               <ChevronRight size={22} />
@@ -264,8 +304,13 @@ const Customers = () => {
         </div>
       </div>
 
-      <div className="bg-brand pb-10 pt-8 text-white mt-10">
-        <div className="container mx-auto px-4">
+      {/* Partners band */}
+      <div ref={partnersRef} className="relative mt-10 overflow-hidden bg-brand pb-10 pt-8 text-white">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:radial-gradient(#F6F4EF_1px,transparent_1px)] [background-size:22px_22px]"
+        />
+        <div className="container relative mx-auto px-4">
           <HeadNtext
             heading="partners around the world"
             text="We are trusted by these companies around the world. From day one, we stay connected, communicate openly, and focus on helping your business grow."
@@ -276,7 +321,7 @@ const Customers = () => {
             {partners.map((partner) => (
               <div
                 key={partner.id}
-                className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-gray-500 p-4 shadow-md md:h-28 md:w-28"
+                className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-white p-4 shadow-lg shadow-black/10 transition-transform duration-300 hover:-translate-y-1 hover:scale-105 md:h-28 md:w-28"
               >
                 <div className="relative h-full w-full">
                   <Image
