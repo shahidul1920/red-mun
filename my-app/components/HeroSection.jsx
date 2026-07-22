@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import SubHeading from "@/components/SubHeading";
 import Button from "@/components/Button";
+import Image from "next/image";
 
 const headingWords =
   "Creatives. Designs. Marketing. Development. Data. Scale Your Business".split(" ");
@@ -34,10 +35,18 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <div className="relative h-[100dvh] min-h-[600px] w-full bg-[url(/smoke-bg-astha-hero.png)] bg-cover bg-center bg-no-repeat">
-      <div className="absolute left-0 top-0 z-10 size-full bg-black/50">
-        <div className="textSec container mx-auto flex h-full flex-col items-start justify-center px-4 text-left sm:px-6 lg:px-8">
-          <div ref={subheadingRef}>
+    <div className="relative h-[100dvh] min-h-[600px] w-full bg-black ">
+      <Image 
+        src="/redmun-svg.png"
+        alt="Background"
+        width={1920}
+        height={400}
+        quality={100}
+        className="object-cover opacity-50 w-full h-auto absolute bottom-0"
+      />
+      <div className="absolute left-0 top-0 z-10 size-full grid place-items-center">
+        <div className="textSec container mx-auto flex h-full flex-col items-start justify-center px-4 text-center sm:px-6 lg:px-8">
+          <div ref={subheadingRef} className="text-center mx-auto">
             <SubHeading className="text-white">
               Grow your Business With Us
             </SubHeading>
@@ -45,7 +54,7 @@ const HeroSection = () => {
 
           <h1
             ref={headingRef}
-            className="mt-4 max-w-3xl text-[2rem] font-bold leading-[1.2] text-white sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.5rem]"
+            className="mt-4 max-w-3xl text-[2rem] font-bold leading-[1.2] text-white sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.5rem] mx-auto"
           >
             {headingWords.map((word, i) => (
               <span
@@ -59,7 +68,7 @@ const HeroSection = () => {
 
           <p
             ref={paragraphRef}
-            className="mt-4 max-w-3xl text-[1rem] font-regular leading-[1.5] text-white sm:text-[1.2rem] md:text-[1.4rem] lg:text-[1.5rem]"
+            className="mt-4 max-w-3xl text-[1rem] font-regular leading-[1.5] text-white sm:text-[1.2rem] md:text-[1.4rem] lg:text-[1.5rem] mx-auto"
           >
             We are a team of creative professionals dedicated to helping
             businesses grow and succeed. Our services include branding, design,
@@ -67,7 +76,7 @@ const HeroSection = () => {
             understand their needs and goals, and we develop customized
             solutions that deliver results.
           </p>
-          <div className="mt-6">
+          <div className="mt-6 text-center mx-auto">
             <Button>Get Started</Button>
           </div>
         </div>

@@ -120,20 +120,20 @@ const Header = () => {
       className="fixed top-0 left-0 z-50 w-full px-4 pt-4 md:pt-8"
     >
       <div
-        className={`container headerSection mx-auto flex items-center justify-between rounded-3xl px-4 py-3 transition-colors duration-300 md:rounded-full shadow-lg backdrop-blur-md ${
+        className={`container headerSection mx-auto flex items-center justify-between rounded-3xl px-3 py-2 transition-colors duration-300 md:rounded-full shadow-lg backdrop-blur-md ${
           isScrolled
-            ? "border border-white/30 bg-white/20"
-            : "border border-white/30 bg-white/20"
+            ? "border border-white/30 bg-white/50"
+            : "border border-white/30 bg-white/70"
         }`}
       >
         <Link href="/" className="relative z-10" onClick={closeMobileMenu}>
-          <div className="logo h-[50px] w-auto">
+          <div className="logo h-[20px] w-auto">
             <Image
-              src="/astha-creatives-logo-1.png"
+              src="/Redmun-final.png"
               className="size-full object-contain"
               alt="Logo"
-              width={70}
-              height={70}
+              width={300}
+              height={55}
             />
           </div>
         </Link>
