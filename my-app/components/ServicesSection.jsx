@@ -102,7 +102,7 @@ const ServicesSection = () => {
     <section
       ref={sectionRef}
       id="services"
-      className="srv relative w-full overflow-hidden bg-[#F6F4EF] py-20 md:py-28"
+      className="srv relative w-full overflow-hidden bg-[#F6F4EF] py-10 md:py-14"
     >
       <div
         aria-hidden="true"

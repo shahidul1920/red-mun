@@ -195,7 +195,7 @@ const Customers = () => {
   const resumeAutoplay = () => startAutoplay();
 
   return (
-    <div ref={rootRef} className="relative overflow-hidden bg-[#F6F4EF] py-8 md:pt-16">
+    <div ref={rootRef} className="relative overflow-hidden bg-[#F6F4EF] pt-8 pb-0 md:pt-10 md:pb-0">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:radial-gradient(#16181F_1px,transparent_1px)] [background-size:22px_22px]"

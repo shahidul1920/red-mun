@@ -2,6 +2,11 @@
 
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import designer from '@/images/other/designer.jpg';
+import developer from '@/images/other/coding.jpg';
+import team from '@/images/other/meeting.jpg';
+import analytics from '@/images/other/data-table.jpg';
+import Image from 'next/image';
 
 const CAPABILITIES = [
   'Brand Identity',
@@ -14,28 +19,29 @@ const CAPABILITIES = [
   'Data Analytics',
 ];
 
-// Swap these src values for your own assets — using next/image with a
-// configured remotePattern for images.unsplash.com is recommended in prod.
+// Row proportions live on the grid container now (grid-rows-[1.3fr_1fr_1fr]),
+// not on each image — that's what lets the collage stretch to match the text
+// column instead of dictating its own fixed height.
 const COLLAGE_IMAGES = [
   {
-    src: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop',
+    src: designer,
     alt: 'Designer working at a desk surrounded by color swatches',
-    wrapClassName: 'col-span-2 h-48 sm:h-60 lg:h-72',
+    wrapClassName: 'col-span-2',
   },
   {
-    src: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=900&auto=format&fit=crop',
+    src: team,
     alt: 'Team collaborating around a table, top-down view',
     wrapClassName: 'col-start-2 row-start-2 row-span-2',
   },
   {
-    src: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=900&auto=format&fit=crop',
+    src: developer,
     alt: 'Developer writing code across dual monitors',
-    wrapClassName: 'col-start-1 row-start-2 h-40 sm:h-44 lg:h-52',
+    wrapClassName: 'col-start-1 row-start-2',
   },
   {
-    src: 'https://images.unsplash.com/photo-1543286386-713bdd548da4?q=80&w=900&auto=format&fit=crop',
+    src: analytics,
     alt: 'Hands reviewing analytics charts on a desk',
-    wrapClassName: 'col-start-1 row-start-3 h-40 sm:h-44 lg:h-52',
+    wrapClassName: 'col-start-1 row-start-3',
   },
 ];
 
@@ -86,7 +92,7 @@ export default function Heroii() {
   return (
     <section
       ref={rootRef}
-      className="relative overflow-hidden bg-[#F6F4EF] py-16 sm:py-20 lg:py-28"
+      className="relative overflow-hidden bg-[#F6F4EF] pt-16 pb-8 sm:pt-20 sm:pb-10 lg:pt-28 lg:pb-12"
     >
       {/* ambient backdrop */}
       <div
@@ -100,9 +106,7 @@ export default function Heroii() {
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         {/* headline */}
-        <h1
-          className="font-display mb-14 max-w-5xl text-[2.15rem] font-semibold uppercase leading-[1.08] tracking-tight text-[#16181F] sm:mb-16 sm:text-5xl lg:mb-20 lg:text-6xl"
-        >
+        <h1 className="font-display mb-14 max-w-5xl text-[2.15rem] font-semibold uppercase leading-[1.08] tracking-tight text-[#16181F] sm:mb-16 sm:text-5xl lg:mb-20 lg:text-6xl">
           <span className="block overflow-hidden">
             <span data-anim="headline-line" className="block">
               We&apos;ve walked the path,
@@ -116,7 +120,10 @@ export default function Heroii() {
           </span>
         </h1>
 
-        <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-2 lg:gap-16">
+        {/* items-stretch makes both columns share the height of the taller one.
+            min-h-0 on the collage (lg only) is what actually lets the collage
+            *shrink* to the text column instead of forcing the row taller. */}
+        <div className="grid grid-cols-1 items-stretch gap-14 lg:grid-cols-2 lg:gap-16">
           {/* left: copy */}
           <div className="font-body">
             <div className="mb-8 flex flex-col gap-3 sm:max-w-md">
@@ -187,19 +194,23 @@ export default function Heroii() {
             </a>
           </div>
 
-          {/* right: image collage */}
-          <div className="grid grid-cols-2 gap-4 sm:gap-5">
+          {/* right: image collage
+              - fixed height below lg (stacked layout)
+              - lg:h-full + lg:min-h-0 → fills the stretched row *and* is
+                allowed to shrink to the text column’s natural height */}
+          <div className="grid h-[26rem] grid-cols-2 grid-rows-[1.3fr_1fr_1fr] gap-4 sm:h-[30rem] sm:gap-5 lg:h-full lg:min-h-0">
             {COLLAGE_IMAGES.map((img) => (
               <div
-                key={img.src}
+                key={img.alt}
                 data-anim="collage-item"
                 className={`group relative overflow-hidden rounded-2xl bg-[#E7E4DC] ${img.wrapClassName}`}
               >
-                <img
+                <Image
                   src={img.src}
                   alt={img.alt}
-                  loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  fill
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 40vw, 90vw"
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                 />
               </div>
             ))}
@@ -208,9 +219,7 @@ export default function Heroii() {
 
         {/* signature element: scrolling capability strip */}
         <div className="mt-16 border-t border-[#16181F]/10 pt-8 sm:mt-20 lg:mt-24">
-          <p
-            className="font-display mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-[#16181F]/50"
-          >
+          <p className="font-display mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-[#16181F]/50">
             What we bring to the table
           </p>
           <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
