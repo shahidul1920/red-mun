@@ -55,7 +55,7 @@ const HeroSection = () => {
 
           <h1
             ref={headingRef}
-            className="mt-4 max-w-3xl text-[2rem] font-bold leading-[1.2] text-white sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.5rem] mx-auto"
+            className="mt-4 max-w-3xl text-[2rem] font-bold leading-[1.2] text-white sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.5rem] mx-auto text-center"
           >
             {headingWords.map((word, i) => (
               <span
