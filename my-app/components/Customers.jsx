@@ -106,16 +106,16 @@ const Customers = () => {
   const partnersRef = useRef(null);
   const autoplayRef = useRef(null);
 
+  const [visibleCount, setVisibleCount] = useState(3);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [maxIndex, setMaxIndex] = useState(testimonials.length - 1);
 
   // Recalculate how many cards are visible (and clamp the index) on mount and on resize.
-  // This is derived from the same breakpoints as the CSS, so it's always correct — no
-  // matter how many testimonials are in the array.
   useEffect(() => {
     const updateVisibleCount = () => {
-      const visibleCount = getVisibleCount();
-      const newMaxIndex = Math.max(0, testimonials.length - visibleCount);
+      const count = getVisibleCount();
+      setVisibleCount(count);
+      const newMaxIndex = Math.max(0, testimonials.length - count);
       setMaxIndex(newMaxIndex);
       setCurrentIndex((prev) => Math.min(prev, newMaxIndex));
     };
@@ -125,18 +125,18 @@ const Customers = () => {
     return () => window.removeEventListener("resize", updateVisibleCount);
   }, []);
 
-  // Slide the track whenever the active index changes. Since every card takes an equal
-  // share of the track regardless of viewport, one "step" is always exactly
-  // 100 / testimonials.length percent of the track's own width — no pixel math needed.
+  // Slide the track whenever the active index changes.
+  // Shifting by -(100 / visibleCount) * currentIndex translates the track
+  // by exactly 1 card width per index increment across all screen sizes.
   useGSAP(
     () => {
       gsap.to(trackRef.current, {
-        xPercent: -(currentIndex * (100 / testimonials.length)),
+        xPercent: -(currentIndex * (100 / visibleCount)),
         duration: prefersReducedMotion() ? 0 : 0.8,
         ease: "power3.inOut",
       });
     },
-    { dependencies: [currentIndex], scope: sliderContainer },
+    { dependencies: [currentIndex, visibleCount], scope: sliderContainer },
   );
 
   // One-time entrance reveal as each block scrolls into view.
