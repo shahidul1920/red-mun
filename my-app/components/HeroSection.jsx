@@ -37,7 +37,7 @@ const HeroSection = () => {
 
   return (
     <div className="relative h-[100dvh] min-h-[600px] w-full bg-black ">
-      <Image 
+      <Image
         src="/redmun-svg.png"
         alt="Background"
         width={1920}
@@ -55,7 +55,7 @@ const HeroSection = () => {
 
           <h1
             ref={headingRef}
-            className="mt-4 max-w-3xl text-[2rem] font-bold leading-[1.2] text-white sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.5rem] mx-auto text-center"
+            className="mt-4 max-w-5xl text-[2rem] font-bold leading-[1.2] text-white sm:text-[2.75rem] md:text-[3.5rem] lg:text-[4.5rem] mx-auto text-center"
           >
             {headingWords.map((word, i) => (
               <span
@@ -69,7 +69,7 @@ const HeroSection = () => {
 
           <p
             ref={paragraphRef}
-            className="mt-4 max-w-3xl text-[1rem] font-regular leading-[1.5] text-white sm:text-[1.2rem] md:text-[1.4rem] lg:text-[1.5rem] mx-auto"
+            className="mt-4 max-w-5xl text-[1rem] font-regular leading-[1.5] text-white sm:text-[1.2rem] md:text-[1.4rem] lg:text-[1.5rem] mx-auto"
           >
             We are a team of creative professionals dedicated to helping
             businesses grow and succeed. Our services include branding, design,
