@@ -1,12 +1,16 @@
 import ContactUs from "@/components/ContactUs";
-import React from "react";
 
-const page = () => {
-  return (
-    <div>
-      <ContactUs />
-    </div>
-  );
+export const metadata = {
+  title: "Contact Us | Redmun Digital Agency",
+  description:
+    "Get in touch with Redmun digital agency. Book a scoping call or connect directly for custom creative design, video production, web development, and data analytics.",
 };
 
-export default page;
+export default function ContactPage() {
+  return (
+    <main>
+      <ContactUs />
+    </main>
+  );
+}
+

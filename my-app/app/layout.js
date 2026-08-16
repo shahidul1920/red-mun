@@ -1,8 +1,7 @@
-import { Poppins } from "next/font/google";
+import { Poppins, Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Space_Grotesk, Inter } from 'next/font/google';
 import { Analytics } from "@vercel/analytics/next";
 
 const poppins = Poppins({
@@ -12,15 +11,15 @@ const poppins = Poppins({
   display: "swap",
 });
 const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  weight: ['500', '600', '700'],
-  variable: '--font-display',
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-display",
 });
 
 const inter = Inter({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-body',
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
 });
 
 export const metadata = {
@@ -34,14 +33,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${poppins.variable} ${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}>
       <body>
-        <div className="header">
-          <Header />
-        </div>
+        <Header />
         {children}
-
-        <footer>
-          <Footer />
-        </footer>
+        <Footer />
         <Analytics />
       </body>
     </html>
