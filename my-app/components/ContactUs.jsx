@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { MapPin, Mail, Phone, Send, ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-
-// Import the server action using root alias
-import { sendContactEmail } from "@/app/contact/actions";
+import { useContactForm } from "@/hooks/useContactForm";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(useGSAP);
@@ -14,60 +13,35 @@ if (typeof window !== "undefined") {
 
 export default function ContactUs() {
   const containerRef = useRef(null);
-  const formRef = useRef(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // 'success' or 'error'
+  const prefersReducedMotion = useReducedMotion();
+  
+  const {
+    isSubmitting,
+    submitStatus,
+    errorMessage,
+    fieldErrors,
+    handleSubmit,
+  } = useContactForm();
 
   useGSAP(
     () => {
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-
       if (prefersReducedMotion) return;
 
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      
+
       tl.fromTo(
         ".hero-text-reveal",
         { opacity: 0, y: 30 },
         { opacity: 1, y: 0, duration: 0.8, stagger: 0.12 }
-      )
-      .fromTo(
+      ).fromTo(
         ".contact-card-reveal",
         { opacity: 0, y: 40 },
         { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 },
         "-=0.45"
       );
     },
-    { scope: containerRef }
+    { scope: containerRef, dependencies: [prefersReducedMotion] }
   );
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-
-    const formData = new FormData(e.currentTarget);
-    const result = await sendContactEmail(formData);
-
-    if (result.success) {
-      setSubmitStatus("success");
-      e.target.reset();
-      
-      // Animate success checkmark or text if desired
-      gsap.fromTo(
-        ".status-msg",
-        { scale: 0.9, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" }
-      );
-    } else {
-      setSubmitStatus("error");
-      console.error(result.error);
-    }
-
-    setIsSubmitting(false);
-  };
 
   return (
     <div
@@ -110,12 +84,12 @@ export default function ContactUs() {
           <div className="lg:col-span-7 contact-card-reveal">
             <div className="bg-white/5 border border-white/8 backdrop-blur-xl rounded-3xl p-6 sm:p-10 md:p-12 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#E42032]/5 to-transparent rounded-bl-full pointer-events-none" />
-              
+
               <h2 className="font-display text-2xl sm:text-3xl font-bold text-white mb-6 uppercase tracking-wide">
                 Start a Scoping Call
               </h2>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-xs text-gray-400 pl-1 uppercase tracking-wider font-semibold">
@@ -124,11 +98,16 @@ export default function ContactUs() {
                     <input
                       type="text"
                       name="userName"
-                      required
-                      className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-3.5 text-white placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-[#E42032] focus:border-[#E42032] transition-all duration-300"
+                      className={`w-full bg-white/5 border ${
+                        fieldErrors.userName ? "border-red-500" : "border-white/8"
+                      } rounded-xl px-4 py-3.5 text-white placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-[#E42032] focus:border-[#E42032] transition-all duration-300`}
                       placeholder="Your Name"
                     />
+                    {fieldErrors.userName && (
+                      <p className="text-xs text-red-400 pl-1">{fieldErrors.userName}</p>
+                    )}
                   </div>
+
                   <div className="space-y-2">
                     <label className="text-xs text-gray-400 pl-1 uppercase tracking-wider font-semibold">
                       Your Email *
@@ -136,10 +115,14 @@ export default function ContactUs() {
                     <input
                       type="email"
                       name="userEmail"
-                      required
-                      className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-3.5 text-white placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-[#E42032] focus:border-[#E42032] transition-all duration-300"
+                      className={`w-full bg-white/5 border ${
+                        fieldErrors.userEmail ? "border-red-500" : "border-white/8"
+                      } rounded-xl px-4 py-3.5 text-white placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-[#E42032] focus:border-[#E42032] transition-all duration-300`}
                       placeholder="name@gmail.com"
                     />
+                    {fieldErrors.userEmail && (
+                      <p className="text-xs text-red-400 pl-1">{fieldErrors.userEmail}</p>
+                    )}
                   </div>
                 </div>
 
@@ -167,15 +150,19 @@ export default function ContactUs() {
 
                 <div className="space-y-2">
                   <label className="text-xs text-gray-400 pl-1 uppercase tracking-wider font-semibold">
-                    Your Message
+                    Your Message *
                   </label>
                   <textarea
                     name="userMessage"
-                    required
                     rows="5"
-                    className="w-full bg-white/5 border border-white/8 rounded-xl px-4 py-3.5 text-white placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-[#E42032] focus:border-[#E42032] transition-all duration-300 resize-none"
+                    className={`w-full bg-white/5 border ${
+                      fieldErrors.userMessage ? "border-red-500" : "border-white/8"
+                    } rounded-xl px-4 py-3.5 text-white placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-[#E42032] focus:border-[#E42032] transition-all duration-300 resize-none`}
                     placeholder="Tell us about your project or scoping goals..."
                   />
+                  {fieldErrors.userMessage && (
+                    <p className="text-xs text-red-400 pl-1">{fieldErrors.userMessage}</p>
+                  )}
                 </div>
 
                 <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
@@ -201,7 +188,7 @@ export default function ContactUs() {
                   )}
                   {submitStatus === "error" && (
                     <span className="status-msg text-red-400 text-sm font-semibold tracking-wide">
-                      ✕ Failed to send message. Please retry.
+                      ✕ {errorMessage || "Failed to send message. Please retry."}
                     </span>
                   )}
                 </div>
@@ -214,7 +201,7 @@ export default function ContactUs() {
             {/* Details Glass Card */}
             <div className="bg-white/5 border border-white/8 backdrop-blur-xl rounded-3xl p-8 flex flex-col gap-8 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#E42032]/5 to-transparent rounded-bl-full pointer-events-none" />
-              
+
               <h3 className="font-display text-xl font-bold uppercase tracking-wider text-white">
                 Contact Details
               </h3>
@@ -271,7 +258,7 @@ export default function ContactUs() {
             </div>
 
             {/* Quick Call Card */}
-            <a 
+            <a
               href="tel:+8801711994608"
               className="bg-gradient-to-br from-[#E42032] to-[#B91C1C] rounded-3xl p-8 relative overflow-hidden group cursor-pointer shadow-lg block hover:shadow-2xl transition-all duration-300"
             >

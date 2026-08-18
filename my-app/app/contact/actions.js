@@ -2,7 +2,7 @@
 
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function escapeHtml(str) {
   if (typeof str !== "string") return "";
@@ -15,10 +15,33 @@ function escapeHtml(str) {
 }
 
 export async function sendContactEmail(formData) {
-  const rawName = formData.get("userName") || "";
-  const rawEmail = formData.get("userEmail") || "";
-  const rawPhone = formData.get("userPhone") || "";
-  const rawMessage = formData.get("userMessage") || "";
+  // Environment variable validation
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.error("Missing environment variable: RESEND_API_KEY");
+    return {
+      success: false,
+      error: "Server configuration error: Contact service is currently unavailable.",
+    };
+  }
+
+  const resend = new Resend(apiKey);
+
+  const rawName = (formData.get("userName") || "").toString().trim();
+  const rawEmail = (formData.get("userEmail") || "").toString().trim();
+  const rawPhone = (formData.get("userPhone") || "").toString().trim();
+  const rawMessage = (formData.get("userMessage") || "").toString().trim();
+
+  // Server-side input validation
+  if (!rawName) {
+    return { success: false, error: "Validation Error: Name is required." };
+  }
+  if (!rawEmail || !EMAIL_REGEX.test(rawEmail)) {
+    return { success: false, error: "Validation Error: A valid email address is required." };
+  }
+  if (!rawMessage || rawMessage.length < 10) {
+    return { success: false, error: "Validation Error: Message must be at least 10 characters." };
+  }
 
   const name = escapeHtml(rawName);
   const email = escapeHtml(rawEmail);
@@ -53,7 +76,7 @@ export async function sendContactEmail(formData) {
 
     return { success: true, data };
   } catch (error) {
-    return { success: false, error: error.message };
+    console.error("Resend API error:", error);
+    return { success: false, error: error.message || "Failed to deliver message." };
   }
 }
-
